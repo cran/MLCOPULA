@@ -15,11 +15,13 @@ join.frank <- function(theta,arbol,U){
   copula <- frankCopula(param = par, dim = 2)
   join[,1] <- dCopula(U[,c(from[1],to[1])],copula)
   
-  for (c in 2:ncop) {
-    par <- theta[from[c],to[c]]
-    copula <- frankCopula(param = par, dim = 2)
-    join[,c] <- dCopula(U[,c(from[c],to[c])],copula)
-  }
+  if(ncop > 1){
+      for (c in 2:ncop) {
+        par <- theta[from[c],to[c]]
+        copula <- frankCopula(param = par, dim = 2)
+        join[,c] <- dCopula(U[,c(from[c],to[c])],copula)
+      }
+    }
   
   join[join == 0] <- 1e-200
   den <- apply(join, 1, function(x)  sum(log(x)) )

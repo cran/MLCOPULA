@@ -13,11 +13,14 @@ join.grid <- function(theta,arbol,U){
   
   par <- theta[[from[1]]][[to[1]]]
   join[,1] <- d.grid(U = U[,c(from[1],to[1])],gc = par)
-  
-  for (c in 2:ncop) {
-    par <- theta[[from[c]]][[to[c]]]
-    join[,c] <- d.grid(U = U[,c(from[c],to[c])],gc = par)
-  }
+
+  if(ncop > 1){
+      for (c in 2:ncop) {
+        par <- theta[[from[c]]][[to[c]]]
+        join[,c] <- d.grid(U = U[,c(from[c],to[c])],gc = par)
+      }
+    }
+
   
   join[join == 0] <- 1e-200
   den <- apply(join, 1, function(x)  sum(log(x)) )

@@ -1,5 +1,6 @@
 export(copulaClassifier)
 export(copulaPredict)
+export(classification_report)
 import(copula)
 import(igraph)
 import(GRIDCOPULA)

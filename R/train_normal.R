@@ -17,7 +17,7 @@ train.normal <- function(X, y, distribution,weights,graph_model){
     den_est <- density.estimation(Xc,distribution = distribution)
     #Estimar copulas
     est_cop <- build.weights(den_est$U, cop.est = estimation.normal,
-                             cop = "normal",weights = weights)
+                             cop = "gaussian",weights = weights)
     #
     if(graph_model == "tree"){
       g <- graph_from_adjacency_matrix(adjmatrix = -1 * est_cop$w, 

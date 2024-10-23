@@ -6,7 +6,7 @@
 mi.cop <- function(theta,cop){
   switch (cop,
           "frank" = mi(frankCopula(param = theta, dim = 2)),
-          "normal" = mi(normalCopula(param = theta, dim = 2)),
+          "gaussian" = mi.gaussian(theta),
           "clayton" = mi(claytonCopula(param = theta, dim = 2)),
           "joe" = mi(joeCopula(param = theta, dim = 2)),
           "gumbel" = mi(gumbelCopula(param = theta, dim = 2)),

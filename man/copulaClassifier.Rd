@@ -2,7 +2,7 @@
 % Please edit documentation in R/classifier_cop.R
 \name{copulaClassifier}
 \alias{copulaClassifier}
-\title{Train a classification model using copula functions.}
+\title{Trains a classification model using copula functions.}
 \usage{
 copulaClassifier(
   X,
@@ -19,54 +19,54 @@ copulaClassifier(
 \arguments{
 \item{X}{Data frame with \eqn{n} samples and \eqn{d>1} predictor variables.}
 
-\item{y}{a vector of size \eqn{n}, with the classes
-to predict.}
+\item{y}{a vector of size \eqn{n}, with the classes to predict.}
 
-\item{distribution}{Marginal distribution to be used: "normal" or "kernel",
-by default kernel.}
+\item{distribution}{Marginal distribution to be used: "normal" or "kernel", by default kernel.}
 
-\item{copula}{Character or vector with the name of the copula to be used:
-"frank", "gaussian", "clayton", "joe", "gumbel", "amh","grid", by default "frank".
-For parametric copulas, "frank", "gaussian", "clayton", "joe", "gumbel", "amh", one or 
+\item{copula}{Either a character or a string vector with the name of the copula to be used:
+"amh", "clayton", "frank", "gaussian", "grid", "gumbel", "independent" and "joe", by default "frank".
+For parametric copulas, "amh", "clayton", "frank", "gaussian", "gumbel", and "joe", one or 
 more copulas can be selected. For nonparametric copula, only "grid" can be selected. 
 See the examples for more details.
 }
 
-\item{weights}{Character with the weight construction method:
+\item{weights}{A character with the weight construction method for the graphical model:
 "likelihood" or "mutual_information", by default "likelihood".}
 
-\item{graph_model}{Character with the graphical model structure: "tree" or "chain", by default "tree".}
+\item{graph_model}{A character with the graphical model structure: "tree" or "chain", by default "tree".}
 
-\item{k}{Only for grid copula. Positive integer indicating the
-number of subintervals for the \eqn{U2} variable.}
+\item{k}{Only for the grid copula. Positive integer indicating the
+number of subintervals for the \eqn{U_2} variable.}
 
-\item{m}{Only for grid copula. Positive integer indicating the number
-of subintervals for the \eqn{U1} variable.}
+\item{m}{Only for the grid copula. Positive integer indicating the number
+of subintervals for the \eqn{U_1} variable.}
 
-\item{method_grid}{Only for grid copula. Fitting method, least squares "ls" or
+\item{method_grid}{Only for the grid copula. Fitting method, least squares "ls" or
 maximum likelihood "ml", by default "ml".}
 }
 \value{
-Returns a list with the trained model.
+Returns a trained model.
 }
 \description{
-It trains a classification model based on copulas,
-the joint density of copulas is built with tree or chain graphic model, as shown in Salinas-Gutiérrez et al., 2014.
+It trains a classification model based on copulas. The dependence structure of 
+the joint density is built by using a graphical model along with bivariate copulas, as shown in Salinas-Gutiérrez et al., 2014.
 }
 \examples{
+# Example 1
 X <- iris[,1:4]
 y <- iris$Species
 model <- copulaClassifier(X = X, y = y, copula = "frank",
                       distribution = "kernel", graph_model = "tree")
 y_pred <- copulaPredict(X = X, model = model)
-table(y,y_pred$class)
-#Example 2
+classification_report(y_true = y, y_pred = y_pred$class)
+
+# Example 2
 X <- iris[,1:4]
 y <- iris$Species
 model <- copulaClassifier(X = X, y = y, copula = c("frank","clayton"), 
                         distribution = "kernel", graph_model = "chain")
 y_pred <- copulaPredict(X = X, model = model)
-table(y,y_pred$class)
+classification_report(y_true = y, y_pred = y_pred$class)
 }
 \references{
 {

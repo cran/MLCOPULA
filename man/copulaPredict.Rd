@@ -2,34 +2,38 @@
 % Please edit documentation in R/predict_cop.R
 \name{copulaPredict}
 \alias{copulaPredict}
-\title{Get predictions from a classification model.}
+\title{Gets predictions from a classification model.}
 \usage{
 copulaPredict(X, model)
 }
 \arguments{
 \item{X}{Data frame with predictor variables.}
 
-\item{model}{Classification model.}
+\item{model}{A classification model given by \code{\link{copulaClassifier}}.}
 }
 \value{
-A list with the prediction of the class "class" and the probabilities of each class "prob".
+A list with the following entries:
+\item{class}{a vector with the predicted class.}
+\item{prob}{a data frame with the probabilities of each class.}
 }
 \description{
 Use the models trained with copula functions
 to generate new predictions.
 }
 \examples{
+# Example 1
 X <- iris[,1:4]
 y <- iris$Species
 model <- copulaClassifier(X = X, y = y, copula = "frank",
                       distribution = "kernel", graph_model = "tree")
 y_pred <- copulaPredict(X = X, model = model)
-table(y,y_pred$class)
-#Example 2
+classification_report(y_true = y, y_pred = y_pred$class)
+
+# Example 2
 X <- iris[,1:4]
 y <- iris$Species
 model <- copulaClassifier(X = X, y = y, copula = c("frank","clayton"), 
                         distribution = "kernel", graph_model = "chain")
 y_pred <- copulaPredict(X = X, model = model)
-table(y,y_pred$class)
+classification_report(y_true = y, y_pred = y_pred$class)
 }

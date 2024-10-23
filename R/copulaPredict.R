@@ -14,7 +14,7 @@
 
 
 copulaPredict <- function(X,model){
-    X <- as.data.frame(X)
+  X <- as.data.frame(X)
   nclass <- model[[1]]$nclass
   prob <- matrix(nrow = dim(X), ncol = nclass)
   colnames(prob) <- 0:(nclass -1 )
@@ -58,7 +58,8 @@ copulaPredict <- function(X,model){
                                            U = den.marg$U),
                         'all' = join.all(theta = model[[i]]$copula$theta,
                                          arbol = model[[i]]$arbol,
-                                         U = den.marg$U, cop = model[[i]]$copula$cop)
+                                         U = den.marg$U, cop = model[[i]]$copula$cop),
+                        'independent' = 0
     )
     
     

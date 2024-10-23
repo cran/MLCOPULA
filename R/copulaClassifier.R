@@ -65,7 +65,8 @@ copulaClassifier = function(X, y, distribution = 'kernel', copula = 'frank',
                                       method = method_grid, k = k,
                                       m = m, weights = weights, graph_model = graph_model),
                    'all' = train.mixture(X = X, y = y, distribution = distribution,
-                       weights = weights, cop = cop2, graph_model = graph_model)
+                       weights = weights, cop = cop2, graph_model = graph_model),
+                  'independent' = train.ind(X = X, y = y, distribution = distribution)
   )
   train$levels <- labels
   return(train)
